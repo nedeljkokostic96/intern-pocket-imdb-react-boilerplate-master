@@ -1,65 +1,67 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
-import { logIn } from '../../store/actions/AuthActions';
+import { logIn } from "../../store/actions/AuthActions";
 
 class Login extends Component {
   state = {
-    email: '',
-    password: ''
+    email: "",
+    password: "",
   };
 
-  handleInputChange = field => event => this.setState({ [field]: event.target.value });
+  handleInputChange = (field) => (event) =>
+    this.setState({ [field]: event.target.value });
 
-  submit = event => {
-    event.preventDefault();
-
+  submit = (form) => {
     let logInData = {
-      email: this.state.email,
-      password: this.state.password
+      email: form.email,
+      password: form.password,
     };
     this.props.logIn(logInData);
   };
 
+  signupSchema = Yup.object().shape({
+    email: Yup.string()
+      .email("Invalid email")
+      .max(255, "Too Long!")
+      .required("Required"),
+    password: Yup.string().required("Required"),
+  });
+
   render() {
     return (
-      <div>
-        <form onSubmit={this.submit}>
-          <h2>Log In</h2>
-          <input
-            type="text"
-            placeholder="Email"
-            value={this.state.email}
-            onChange={this.handleInputChange('email')}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.handleInputChange('password')}
-          />
-          <input type="submit" value="Log in" />
-          {this.props.loginError && <p>Login error</p>}
-        </form>
-      </div>
+      <Formik
+        onSubmit={this.submit}
+        initialValues={this.state}
+        validationSchema={this.signupSchema}
+      >
+        {() => (
+          <Form>
+            <Field name="email" type="email" placeholder="Email" />
+            <ErrorMessage component="div" name="email" />
+            <br />
+            <Field name="password" type="password" placeholder="Password" />
+            <ErrorMessage component="div" name="password" />
+            <br />
+            <button type="submit">Submit</button>
+          </Form>
+        )}
+      </Formik>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    loginError: state.error.loginError
+    loginError: state.error.loginError,
   };
 };
 
 const mapDispatchToProps = {
-  logIn
+  logIn,
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Login)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));
