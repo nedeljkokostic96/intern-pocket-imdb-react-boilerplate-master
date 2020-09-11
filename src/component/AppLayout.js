@@ -1,20 +1,21 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import React from "react";
+import { Route } from "react-router-dom";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
-import Login from '../containers/auth/Login';
-import Register from '../containers/auth/Register';
-import Home from '../containers/Home';
-import { authUser } from '../store/actions/AuthActions';
+import Login from "../containers/auth/Login";
+import Register from "../containers/auth/Register";
+import Home from "../containers/Home";
+import { authUser } from "../store/actions/AuthActions";
+import MovieDetails from "../containers/MovieDetails";
 
 class AppLayout extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.user !== prevProps.user) {
       if (this.props.user) {
-        this.props.history.push('/home');
+        this.props.history.push("/home");
       } else {
-        this.props.history.push('/login');
+        this.props.history.push("/login");
       }
     }
   }
@@ -23,6 +24,7 @@ class AppLayout extends React.Component {
     return this.props.user ? (
       <div>
         <Route exact path="/home" component={Home} />
+        <Route exact path="/movies/" component={MovieDetails} />
       </div>
     ) : (
       <div>
@@ -33,21 +35,18 @@ class AppLayout extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    user: state.authUser
+    user: state.authUser,
   };
 };
 
 const mapDispatchToProps = () => {
   return {
-    authUser
+    authUser,
   };
 };
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(AppLayout)
+  connect(mapStateToProps, mapDispatchToProps)(AppLayout)
 );
