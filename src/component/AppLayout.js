@@ -7,6 +7,7 @@ import Login from "../containers/auth/Login";
 import Register from "../containers/auth/Register";
 import Home from "../containers/Home";
 import { authUser } from "../store/actions/AuthActions";
+import MovieDetails from "../containers/MovieDetails";
 
 class AppLayout extends React.Component {
   componentDidUpdate(prevProps) {
@@ -23,6 +24,7 @@ class AppLayout extends React.Component {
     return this.props.user ? (
       <div>
         <Route exact path="/home" component={Home} />
+        <Route exact path="/movies/" component={MovieDetails} />
       </div>
     ) : (
       <div>
