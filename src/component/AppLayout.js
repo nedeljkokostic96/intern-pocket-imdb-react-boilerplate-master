@@ -20,9 +20,12 @@ class AppLayout extends React.Component {
   }
 
   render() {
-    return (
+    return this.props.user ? (
       <div>
         <Route exact path="/home" component={Home} />
+      </div>
+    ) : (
+      <div>
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
       </div>
