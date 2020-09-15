@@ -3,6 +3,8 @@ import {
     SET_MOVIES,
     GET_SINGLE_MOVIE,
     SET_SINGLE_MOVIE,
+    GET_MOVIES_LIKE,
+    SET_MOVIES_LIKE,
 } from './ActionTypes';
 
 export const getMovies = (payload) => {
@@ -29,6 +31,20 @@ export const getSingleMovie = (payload) => {
 export const setSingleMovie = (payload) => {
     return {
         type: SET_SINGLE_MOVIE,
+        payload,
+    };
+};
+
+export const getMoviesLike = (payload) => {
+    return {
+        type: GET_MOVIES_LIKE,
+        payload,
+    };
+};
+
+export const setMoviesLike = (payload) => {
+    return {
+        type: SET_MOVIES_LIKE,
         payload,
     };
 };

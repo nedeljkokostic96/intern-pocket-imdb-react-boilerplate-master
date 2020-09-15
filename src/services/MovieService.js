@@ -12,6 +12,10 @@ class MovieService extends ApiService {
     getSingleMovie = (id) => {
         return this.apiClient.get(ENDPOINTS.MOVIES + '/' + id);
     };
+
+    getMoviesLike = (title) => {
+        return this.apiClient.get(ENDPOINTS.MOVIES + '/like/' + title);
+    };
 }
 
 export const movieService = new MovieService();

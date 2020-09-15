@@ -1,8 +1,13 @@
-import { SET_MOVIES, SET_SINGLE_MOVIE } from '../actions/ActionTypes';
+import {
+    SET_MOVIES,
+    SET_SINGLE_MOVIE,
+    SET_MOVIES_LIKE,
+} from '../actions/ActionTypes';
 
 const initialState = {
     all: [],
     singleMovie: {},
+    moviesLike: [],
 };
 const movieReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -10,6 +15,8 @@ const movieReducer = (state = initialState, action) => {
             return { ...state, all: action.payload };
         case SET_SINGLE_MOVIE:
             return { ...state, singleMovie: action.payload };
+        case SET_MOVIES_LIKE:
+            return { ...state, moviesLike: action.payload };
         default:
             return state;
     }

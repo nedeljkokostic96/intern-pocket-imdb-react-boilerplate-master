@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { getMovies } from '../store/actions/MovieActions';
 import MovieCard from '../component/MovieCard';
 import Pagination from '../component/Pagination';
+import Search from '../component/Search';
 
 const homeStyle = {
     textAlign: 'center',
@@ -53,6 +54,7 @@ class Home extends Component {
                 <p>Welcome to Pocket IMDb</p>
                 <h4>Movies</h4>
                 {this.renderPagination()}
+                <Search />
                 {this.renderMovies()}
                 {this.renderPagination()}
             </div>
