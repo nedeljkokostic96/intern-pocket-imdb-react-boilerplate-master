@@ -32,19 +32,19 @@ class Search extends React.Component {
             const searchBox = document.getElementById('search-box');
             const targetElement = event.target;
             if (targetElement !== searchBox) {
-                this.setState({ search: '', all: [] });
+                this.handleChange({ target: { value: '' } });
             }
         });
     }
 
+    getMoviesFromDB = debounce((value) => {
+        this.props.getMoviesLike({ title: value });
+    }, 750);
+
     handleChange = (event) => {
         const { value } = event.target;
-        this.setState((prevState) => {
-            return {
-                search: value,
-            };
-        });
-        this.props.getMoviesLike({ title: value });
+        this.setState({ search: value });
+        this.getMoviesFromDB(value);
     };
 
     render() {
