@@ -2,7 +2,6 @@ import React from 'react';
 import { getSingleMovie } from '../store/actions/MovieActions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { movieService } from '../services/MovieService';
 
 const movieDetails = {
     backgroundColor: 'rgba(0, 0, 0, 0.3)',

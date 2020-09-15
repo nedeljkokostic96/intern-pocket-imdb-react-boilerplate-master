@@ -5,9 +5,10 @@ import {
     SET_SINGLE_MOVIE,
 } from './ActionTypes';
 
-export const getMovies = () => {
+export const getMovies = (payload) => {
     return {
         type: GET_MOVIES,
+        payload,
     };
 };
 

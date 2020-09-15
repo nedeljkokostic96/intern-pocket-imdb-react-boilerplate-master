@@ -3,9 +3,10 @@ import { call, put } from 'redux-saga/effects';
 import { movieService } from '../../services/MovieService';
 import { setMovies, setSingleMovie } from '../actions/MovieActions';
 
-export function* moviesGet() {
+export function* moviesGet({ payload }) {
+    console.log(payload);
     try {
-        const { data } = yield call(movieService.getMovies);
+        const { data } = yield call(movieService.getMovies, payload.page);
 
         yield put(setMovies(data));
     } catch (error) {
