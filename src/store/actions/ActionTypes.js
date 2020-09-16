@@ -16,3 +16,5 @@ export const GET_MOVIES_LIKE = 'GET_MOVIES_LIKE';
 export const SET_MOVIES_LIKE = 'SET_MOVIES_LIKE';
 
 export const ADD_REACTION = 'ADD_REACTION';
+
+export const INCREMENT_VIEWS = 'INCREMENT_VIEWS';

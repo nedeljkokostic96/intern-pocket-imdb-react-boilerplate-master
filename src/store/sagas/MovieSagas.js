@@ -37,10 +37,20 @@ export function* getMoviesLike({ payload }) {
 
 export function* addReaction({ payload }) {
     try {
-        let { data } = yield call(movieService.addReaction, payload);
+        const { data } = yield call(movieService.addReaction, payload);
         if (data.status) {
-            console.log('entered');
             getMovies({ page: 1 });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export function* incrementViews({ payload }) {
+    try {
+        const { data } = yield call(movieService.incrementViews, payload);
+        if (!data.status) {
+            console.log(data);
         }
     } catch (error) {
         console.log(error);

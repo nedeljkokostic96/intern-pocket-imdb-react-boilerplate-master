@@ -28,6 +28,7 @@ const MovieCard = ({ movie, page }) => {
             <img style={image} src={movie.image_url} alt="Cant be loaded..." />
             <h3>{movie.title}</h3>
             <h4>{movie.genre.name}</h4>
+            <p>Views: {movie.views}</p>
             <div>{movie.description}</div>
             <a style={link} href={'/movies/' + movie.id}>
                 Details...

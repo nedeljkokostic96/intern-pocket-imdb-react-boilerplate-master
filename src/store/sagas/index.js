@@ -6,6 +6,7 @@ import {
     GET_SINGLE_MOVIE,
     GET_MOVIES_LIKE,
     ADD_REACTION,
+    INCREMENT_VIEWS,
 } from '../actions/ActionTypes';
 import { userLogin, userRegister } from './AuthSagas';
 import {
@@ -13,6 +14,7 @@ import {
     getSingleMovie,
     getMoviesLike,
     addReaction,
+    incrementViews,
 } from './MovieSagas';
 
 export default function* rootSaga() {
@@ -23,5 +25,6 @@ export default function* rootSaga() {
         takeLatest(GET_SINGLE_MOVIE, getSingleMovie),
         takeLatest(GET_MOVIES_LIKE, getMoviesLike),
         takeLatest(ADD_REACTION, addReaction),
+        takeLatest(INCREMENT_VIEWS, incrementViews),
     ]);
 }

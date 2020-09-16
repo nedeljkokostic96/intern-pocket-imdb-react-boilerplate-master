@@ -1,5 +1,5 @@
 import React from 'react';
-import { getSingleMovie } from '../store/actions/MovieActions';
+import { getSingleMovie, incrementViews } from '../store/actions/MovieActions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -31,13 +31,17 @@ class MovieDetails extends React.Component {
         const path = this.props.location.pathname;
         const splittedPath = path.split('/');
         const movieId = splittedPath[splittedPath.length - 1];
+        this.props.incrementViews({ movieId: parseInt(movieId) });
         this.props.getSingleMovie({ id: movieId });
+        console.log('Details showed!');
     }
 
     renderMovieDetails = () => {
         return (
             <div className="container" style={movieDetails}>
                 <h1 style={titleStyle}>{this.props.movie.title}</h1>
+                <h4>{this.props.movie.genre.name}</h4>
+                <p>Views: {this.props.movie.views}</p>
                 <img
                     src={this.props.movie.image_url}
                     alt="Can not load from specified source..."
@@ -67,6 +71,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     getSingleMovie,
+    incrementViews,
 };
 
 export default withRouter(

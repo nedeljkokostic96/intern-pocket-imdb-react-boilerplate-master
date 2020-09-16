@@ -21,6 +21,12 @@ class MovieService extends ApiService {
     addReaction = (payload) => {
         return this.apiClient.post(ENDPOINTS.LIKES, payload);
     };
+
+    incrementViews = (payload) => {
+        return this.apiClient.put(
+            ENDPOINTS.MOVIES + '/views/' + payload.movieId
+        );
+    };
 }
 
 export const movieService = new MovieService();

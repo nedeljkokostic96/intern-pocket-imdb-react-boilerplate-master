@@ -6,10 +6,10 @@ import {
     GET_MOVIES_LIKE,
     SET_MOVIES_LIKE,
     ADD_REACTION,
+    INCREMENT_VIEWS,
 } from './ActionTypes';
 
 export const getMovies = (payload) => {
-    console.log('entered action', payload);
     return {
         type: GET_MOVIES,
         payload,
@@ -54,6 +54,13 @@ export const setMoviesLike = (payload) => {
 export const addReaction = (payload) => {
     return {
         type: ADD_REACTION,
+        payload,
+    };
+};
+
+export const incrementViews = (payload) => {
+    return {
+        type: INCREMENT_VIEWS,
         payload,
     };
 };
