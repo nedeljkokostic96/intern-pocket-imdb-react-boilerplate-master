@@ -3,6 +3,8 @@ import { getSingleMovie } from '../store/actions/MovieActions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+import Like from '../component/Like';
+
 const movieDetails = {
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
     border: '1px solid black',
@@ -41,13 +43,19 @@ class MovieDetails extends React.Component {
                     alt="Can not load from specified source..."
                 />
                 <div style={description}>{this.props.movie.description}</div>
+                <Like
+                    reactions={this.props.movie.likes}
+                    movieId={this.props.movie.id}
+                />
                 <div style={comments}>Comments</div>
             </div>
         );
     };
 
     render() {
-        return this.props.movie === undefined ? '' : this.renderMovieDetails();
+        return this.props.movie.likes === undefined
+            ? ''
+            : this.renderMovieDetails();
     }
 }
 

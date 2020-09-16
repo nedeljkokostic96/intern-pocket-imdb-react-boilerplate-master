@@ -23,6 +23,7 @@ class Home extends Component {
     }
 
     handlePageChange = (event) => {
+        this.setState({ activePage: event.target.value });
         this.props.getMovies({ page: parseInt(event.target.value) });
     };
 
@@ -31,16 +32,23 @@ class Home extends Component {
             this.props.movies.data === undefined
                 ? this.props.movies
                 : this.props.movies.data;
-        return data.map((movie) => <MovieCard key={movie.id} movie={movie} />);
+        return data.map((movie) => (
+            <MovieCard
+                key={movie.id}
+                page={this.state.activePage}
+                movie={movie}
+            />
+        ));
     };
 
     renderPagination = () => {
         if (this.props.movies.data !== undefined) {
+            const data = this.props.movies;
             return (
                 <div>
                     <Pagination
-                        pagesCount={this.props.movies.last_page}
-                        currentButton={this.props.movies.current_page}
+                        pagesCount={data.last_page}
+                        currentButton={data.current_page}
                         onClick={this.handlePageChange}
                     />
                 </div>

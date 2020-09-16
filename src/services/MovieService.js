@@ -2,6 +2,7 @@ import ApiService from './ApiService';
 
 const ENDPOINTS = {
     MOVIES: '/api/movies',
+    LIKES: '/api/likes',
 };
 
 class MovieService extends ApiService {
@@ -15,6 +16,10 @@ class MovieService extends ApiService {
 
     getMoviesLike = (title) => {
         return this.apiClient.get(ENDPOINTS.MOVIES + '/like/' + title);
+    };
+
+    addReaction = (payload) => {
+        return this.apiClient.post(ENDPOINTS.LIKES, payload);
     };
 }
 
