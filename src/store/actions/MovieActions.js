@@ -13,6 +13,8 @@ import {
     ADD_COMMENT,
     GET_COMMENTS_FOR_MOVIE,
     SET_COMMENTS_FOR_MOVIE,
+    GET_HOTEST_MOVIES,
+    SET_HOTEST_MOVIES,
 } from './ActionTypes';
 
 export const getMovies = (payload) => {
@@ -108,6 +110,20 @@ export const getCommentsForMovie = (payload) => {
 export const setCommentsForMovie = (payload) => {
     return {
         type: SET_COMMENTS_FOR_MOVIE,
+        payload,
+    };
+};
+
+export const getHotestMovies = (payload) => {
+    return {
+        type: GET_HOTEST_MOVIES,
+        payload,
+    };
+};
+
+export const setHotestMovies = (payload) => {
+    return {
+        type: SET_HOTEST_MOVIES,
         payload,
     };
 };

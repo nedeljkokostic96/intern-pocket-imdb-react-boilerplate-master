@@ -11,6 +11,7 @@ import {
     GET_MOVIES_BY_GENRE,
     ADD_COMMENT,
     GET_COMMENTS_FOR_MOVIE,
+    GET_HOTEST_MOVIES,
 } from '../actions/ActionTypes';
 import { userLogin, userRegister } from './AuthSagas';
 import {
@@ -23,6 +24,7 @@ import {
     getMoviesByGenre,
     addComment,
     getCommentsForMovie,
+    getHotestMovies,
 } from './MovieSagas';
 
 export default function* rootSaga() {
@@ -38,5 +40,6 @@ export default function* rootSaga() {
         takeLatest(GET_MOVIES_BY_GENRE, getMoviesByGenre),
         takeLatest(ADD_COMMENT, addComment),
         takeLatest(GET_COMMENTS_FOR_MOVIE, getCommentsForMovie),
+        takeLatest(GET_HOTEST_MOVIES, getHotestMovies),
     ]);
 }

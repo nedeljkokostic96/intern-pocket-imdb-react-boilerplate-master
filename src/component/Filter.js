@@ -4,18 +4,13 @@ import { withRouter } from 'react-router-dom';
 
 import { getGenres, getMoviesByGenre } from '../store/actions/MovieActions';
 
-const style = {
-    width: '20%',
-    height: '100%',
-    display: 'inline-block',
-    float: 'left',
-    marginTop: '2vh',
-    paddingTop: '0px',
-};
-
 const select = {
     width: '80%',
-    height: '3vh',
+    height: '3.3vh',
+};
+
+const filter = {
+    marginBottom: '2vh',
 };
 
 class Filter extends React.Component {
@@ -37,7 +32,7 @@ class Filter extends React.Component {
 
     render() {
         return (
-            <div style={style}>
+            <div style={filter}>
                 <select
                     style={select}
                     name="genre"

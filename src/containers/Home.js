@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { getMovies } from '../store/actions/MovieActions';
+import { getMovies, getHotestMovies } from '../store/actions/MovieActions';
 import MovieCard from '../component/MovieCard';
 import Pagination from '../component/Pagination';
 import Search from '../component/Search';
@@ -23,13 +23,37 @@ const content = {
     paddingTop: '0px',
 };
 
+const sideBar = {
+    margin: '0px',
+    padding: '0px',
+    height: 'auto',
+    display: 'inline-block',
+    float: 'left',
+    width: '20%',
+    marginTop: '2vh',
+    textAlign: 'center',
+};
+
+const linkToHotest = {
+    display: 'block',
+    color: 'black',
+    textDecoration: 'none',
+    border: '1px solid red',
+    width: '80%',
+    margin: '1vh 10%',
+};
+
 class Home extends Component {
     state = {
         activePage: 1,
+        numberOfHotest: 10,
     };
 
     componentDidMount() {
         this.props.getMovies({ page: this.state.activePage });
+        this.props.getHotestMovies({
+            numberOfHotest: this.state.numberOfHotest,
+        });
     }
 
     handlePageChange = (event) => {
@@ -73,7 +97,19 @@ class Home extends Component {
                 <h4>Movies</h4>
                 {this.renderPagination()}
                 <Search />
-                <Filter />
+                <div style={sideBar}>
+                    <Filter />
+                    <h3>Hot movies</h3>
+                    {this.props.hotestMovies.map((movie) => (
+                        <a
+                            style={linkToHotest}
+                            key={movie.movie.id}
+                            href={'/movies/' + movie.movie.id}
+                        >
+                            {movie.movie.title} [{movie.likes}]
+                        </a>
+                    ))}
+                </div>
                 <div style={content}>{this.renderMovies()}</div>
                 {this.renderPagination()}
             </div>
@@ -84,11 +120,13 @@ class Home extends Component {
 const mapStateToProps = (state) => {
     return {
         movies: state.movie.all,
+        hotestMovies: state.movie.hotestMovies,
     };
 };
 
 const mapDispatchToProps = {
     getMovies,
+    getHotestMovies,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));
