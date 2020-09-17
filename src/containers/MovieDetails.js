@@ -3,6 +3,7 @@ import {
     getSingleMovie,
     incrementViews,
     getCommentsForMovie,
+    getRelatedMovies,
 } from '../store/actions/MovieActions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -17,6 +18,7 @@ const movieDetails = {
     minHeight: '100vh',
     minWidth: '70%',
     textAlign: 'center',
+    display: 'inline-block',
 };
 const titleStyle = {
     fontSize: '10vh',
@@ -37,6 +39,23 @@ const comments = {
     padding: '2vh 1vw',
 };
 
+const sideBar = {
+    display: 'inline-block',
+    width: '15%',
+    float: 'left',
+    border: '1px solid red',
+    textAlign: 'center',
+};
+
+const link = {
+    display: 'block',
+    color: 'black',
+    textDecoration: 'none',
+    border: '1px solid red',
+    width: '80%',
+    margin: '1vh 10%',
+};
+
 class MovieDetails extends React.Component {
     state = {
         movieId: 0,
@@ -53,6 +72,9 @@ class MovieDetails extends React.Component {
         this.props.getCommentsForMovie({
             movieId: movieId,
             page: this.state.commentPage,
+        });
+        this.props.getRelatedMovies({
+            movieId: movieId,
         });
     }
 
@@ -112,10 +134,28 @@ class MovieDetails extends React.Component {
         );
     };
 
+    renderRelatedMovies = () => {
+        return (
+            <div style={sideBar}>
+                <h3>Related movies</h3>
+                {this.props.relatedMovies.map((movie) => (
+                    <a style={link} key={movie.id} href={movie.id}>
+                        {movie.title}
+                    </a>
+                ))}
+            </div>
+        );
+    };
+
     render() {
-        return this.props.movie.likes === undefined
-            ? ''
-            : this.renderMovieDetails();
+        return (
+            <div>
+                {this.renderRelatedMovies()}
+                {this.props.movie.likes === undefined
+                    ? ''
+                    : this.renderMovieDetails()}
+            </div>
+        );
     }
 }
 
@@ -123,6 +163,7 @@ const mapStateToProps = (state) => {
     return {
         movie: state.movie.singleMovie,
         comments: state.movie.comments,
+        relatedMovies: state.movie.relatedMovies,
     };
 };
 
@@ -130,6 +171,7 @@ const mapDispatchToProps = {
     getSingleMovie,
     incrementViews,
     getCommentsForMovie,
+    getRelatedMovies,
 };
 
 export default withRouter(

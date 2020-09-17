@@ -7,6 +7,7 @@ import {
     setGenres,
     setCommentsForMovie,
     setHotestMovies,
+    setRelatedMovies,
 } from '../actions/MovieActions';
 
 export function* moviesGet({ payload }) {
@@ -103,6 +104,15 @@ export function* getHotestMovies({ payload }) {
     try {
         const { data } = yield call(movieService.getHotestMovies, payload);
         yield put(setHotestMovies(data));
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export function* getRelatedMovies({ payload }) {
+    try {
+        const { data } = yield call(movieService.getRelatedMovies, payload);
+        yield put(setRelatedMovies(data));
     } catch (error) {
         console.log(error);
     }

@@ -61,6 +61,12 @@ class MovieService extends ApiService {
             ENDPOINTS.MOVIES + '/hotest/' + payload.numberOfHotest
         );
     };
+
+    getRelatedMovies = (payload) => {
+        return this.apiClient.get(
+            ENDPOINTS.MOVIES + '/related/' + payload.movieId
+        );
+    };
 }
 
 export const movieService = new MovieService();

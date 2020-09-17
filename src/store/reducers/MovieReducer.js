@@ -5,6 +5,7 @@ import {
     SET_GENRES,
     SET_COMMENTS_FOR_MOVIE,
     SET_HOTEST_MOVIES,
+    SET_RELATED_MOVIES,
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
     genres: [],
     comments: [],
     hotestMovies: [],
+    relatedMovies: [],
 };
 const movieReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -36,6 +38,8 @@ const movieReducer = (state = initialState, action) => {
             return { ...state, comments: action.payload };
         case SET_HOTEST_MOVIES:
             return { ...state, hotestMovies: action.payload };
+        case SET_RELATED_MOVIES:
+            return { ...state, relatedMovies: action.payload };
         default:
             return state;
     }
