@@ -7,6 +7,9 @@ import {
     SET_MOVIES_LIKE,
     ADD_REACTION,
     INCREMENT_VIEWS,
+    GET_GENRES,
+    SET_GENRES,
+    GET_MOVIES_BY_GENRE,
 } from './ActionTypes';
 
 export const getMovies = (payload) => {
@@ -61,6 +64,26 @@ export const addReaction = (payload) => {
 export const incrementViews = (payload) => {
     return {
         type: INCREMENT_VIEWS,
+        payload,
+    };
+};
+
+export const getGenres = () => {
+    return {
+        type: GET_GENRES,
+    };
+};
+
+export const setGenres = (payload) => {
+    return {
+        type: SET_GENRES,
+        payload,
+    };
+};
+
+export const getMoviesByGenre = (payload) => {
+    return {
+        type: GET_MOVIES_BY_GENRE,
         payload,
     };
 };

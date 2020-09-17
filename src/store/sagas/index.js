@@ -7,6 +7,8 @@ import {
     GET_MOVIES_LIKE,
     ADD_REACTION,
     INCREMENT_VIEWS,
+    GET_GENRES,
+    GET_MOVIES_BY_GENRE,
 } from '../actions/ActionTypes';
 import { userLogin, userRegister } from './AuthSagas';
 import {
@@ -15,6 +17,8 @@ import {
     getMoviesLike,
     addReaction,
     incrementViews,
+    genresGet,
+    getMoviesByGenre,
 } from './MovieSagas';
 
 export default function* rootSaga() {
@@ -26,5 +30,7 @@ export default function* rootSaga() {
         takeLatest(GET_MOVIES_LIKE, getMoviesLike),
         takeLatest(ADD_REACTION, addReaction),
         takeLatest(INCREMENT_VIEWS, incrementViews),
+        takeLatest(GET_GENRES, genresGet),
+        takeLatest(GET_MOVIES_BY_GENRE, getMoviesByGenre),
     ]);
 }

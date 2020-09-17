@@ -6,11 +6,21 @@ import { getMovies } from '../store/actions/MovieActions';
 import MovieCard from '../component/MovieCard';
 import Pagination from '../component/Pagination';
 import Search from '../component/Search';
+import Filter from '../component/Filter';
 
 const homeStyle = {
     textAlign: 'center',
     background: 'LightCyan',
     alignContent: 'center',
+};
+
+const content = {
+    display: 'inline-block',
+    borderLeft: '1px solid black',
+    width: '80%',
+    textAlign: 'left',
+    marginTop: '2vh',
+    paddingTop: '0px',
 };
 
 class Home extends Component {
@@ -63,7 +73,8 @@ class Home extends Component {
                 <h4>Movies</h4>
                 {this.renderPagination()}
                 <Search />
-                {this.renderMovies()}
+                <Filter />
+                <div style={content}>{this.renderMovies()}</div>
                 {this.renderPagination()}
             </div>
         );

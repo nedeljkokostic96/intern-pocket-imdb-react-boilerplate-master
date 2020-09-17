@@ -3,6 +3,7 @@ import ApiService from './ApiService';
 const ENDPOINTS = {
     MOVIES: '/api/movies',
     LIKES: '/api/likes',
+    GENRES: '/api/genres',
 };
 
 class MovieService extends ApiService {
@@ -26,6 +27,18 @@ class MovieService extends ApiService {
         return this.apiClient.put(
             ENDPOINTS.MOVIES + '/views/' + payload.movieId
         );
+    };
+
+    getGenres = () => {
+        return this.apiClient.get(ENDPOINTS.GENRES);
+    };
+
+    getMoviesByGenre = (payload) => {
+        const url =
+            parseInt(payload.genreId) > 0
+                ? ENDPOINTS.MOVIES + '/genre/' + payload.genreId
+                : ENDPOINTS.MOVIES + '?page=1';
+        return this.apiClient.get(url);
     };
 }
 

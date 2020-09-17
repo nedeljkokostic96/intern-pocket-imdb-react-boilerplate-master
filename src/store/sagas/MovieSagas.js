@@ -6,6 +6,7 @@ import {
     setSingleMovie,
     setMoviesLike,
     getMovies,
+    setGenres,
 } from '../actions/MovieActions';
 
 export function* moviesGet({ payload }) {
@@ -52,6 +53,25 @@ export function* incrementViews({ payload }) {
         if (!data.status) {
             console.log(data);
         }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export function* genresGet() {
+    try {
+        const { data } = yield call(movieService.getGenres);
+        yield put(setGenres(data));
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export function* getMoviesByGenre({ payload }) {
+    try {
+        const { data } = yield call(movieService.getMoviesByGenre, payload);
+        console.log(data);
+        yield put(setMovies(data));
     } catch (error) {
         console.log(error);
     }

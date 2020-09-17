@@ -4,17 +4,19 @@ import Like from './Like';
 const card = {
     border: '1px solid black',
     background: 'rgba(0, 0, 0, 0.5)',
-    minHeight: '80vh',
+    minHeight: '100vh',
     minWidth: '10%',
     width: '30%',
     height: 'auto',
     display: 'inline-block',
-    margin: '4vh 3%',
+    margin: '0vh 3% 4vh',
 };
 
 const link = {
     color: 'white',
     fontSize: '2vh',
+    textAlign: 'center',
+    margin: '0% 40%',
 };
 
 const MovieCard = ({ movie, page }) => {

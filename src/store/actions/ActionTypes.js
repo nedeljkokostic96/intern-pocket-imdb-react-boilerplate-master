@@ -18,3 +18,8 @@ export const SET_MOVIES_LIKE = 'SET_MOVIES_LIKE';
 export const ADD_REACTION = 'ADD_REACTION';
 
 export const INCREMENT_VIEWS = 'INCREMENT_VIEWS';
+
+export const GET_GENRES = 'GET_GENRES';
+export const SET_GENRES = 'SET_GENRES';
+
+export const GET_MOVIES_BY_GENRE = 'GET_MOVIES_BY_GENRE';

@@ -33,7 +33,6 @@ class MovieDetails extends React.Component {
         const movieId = splittedPath[splittedPath.length - 1];
         this.props.incrementViews({ movieId: parseInt(movieId) });
         this.props.getSingleMovie({ id: movieId });
-        console.log('Details showed!');
     }
 
     renderMovieDetails = () => {
