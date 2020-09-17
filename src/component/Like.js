@@ -10,7 +10,6 @@ const likeButton = {
 
 const likePanel = {
     margin: '2vh',
-    position: 'absolute',
     bootom: '3vh',
 };
 
@@ -35,6 +34,7 @@ class Like extends React.Component {
             liked: liked,
             movieId: this.props.movieId,
         });
+        this.props.refresh();
     };
 
     render() {

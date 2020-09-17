@@ -10,6 +10,9 @@ import {
     GET_GENRES,
     SET_GENRES,
     GET_MOVIES_BY_GENRE,
+    ADD_COMMENT,
+    GET_COMMENTS_FOR_MOVIE,
+    SET_COMMENTS_FOR_MOVIE,
 } from './ActionTypes';
 
 export const getMovies = (payload) => {
@@ -84,6 +87,27 @@ export const setGenres = (payload) => {
 export const getMoviesByGenre = (payload) => {
     return {
         type: GET_MOVIES_BY_GENRE,
+        payload,
+    };
+};
+
+export const addComment = (payload) => {
+    return {
+        type: ADD_COMMENT,
+        payload,
+    };
+};
+
+export const getCommentsForMovie = (payload) => {
+    return {
+        type: GET_COMMENTS_FOR_MOVIE,
+        payload,
+    };
+};
+
+export const setCommentsForMovie = (payload) => {
+    return {
+        type: SET_COMMENTS_FOR_MOVIE,
         payload,
     };
 };

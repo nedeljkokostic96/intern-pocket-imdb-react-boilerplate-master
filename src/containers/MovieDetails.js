@@ -1,9 +1,15 @@
 import React from 'react';
-import { getSingleMovie, incrementViews } from '../store/actions/MovieActions';
+import {
+    getSingleMovie,
+    incrementViews,
+    getCommentsForMovie,
+} from '../store/actions/MovieActions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import Like from '../component/Like';
+import CommentForm from '../component/CommentForm';
+import Comment from '../component/Comment';
 
 const movieDetails = {
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
@@ -19,21 +25,55 @@ const description = {
     borderBottom: '1px solid black',
     marginTop: '2vh',
 };
-const comments = {
+const commentsPanel = {
     width: '80%',
     backgroundColor: 'lightgreen',
     margin: '2vh 10%',
-    minHeight: '40vh',
+    minHeight: '20vh',
+    height: 'auto',
+};
+
+const comments = {
+    padding: '2vh 1vw',
 };
 
 class MovieDetails extends React.Component {
+    state = {
+        movieId: 0,
+        commentPage: 1,
+    };
+
     componentDidMount() {
         const path = this.props.location.pathname;
         const splittedPath = path.split('/');
         const movieId = splittedPath[splittedPath.length - 1];
+        this.setState({ movieId: movieId });
         this.props.incrementViews({ movieId: parseInt(movieId) });
         this.props.getSingleMovie({ id: movieId });
+        this.props.getCommentsForMovie({
+            movieId: movieId,
+            page: this.state.commentPage,
+        });
     }
+
+    refreshPage = () => {
+        this.props.getSingleMovie({ id: this.state.movieId });
+    };
+
+    loadMoreComments = () => {
+        if (
+            this.props.comments.current_page + 1 <=
+            this.props.comments.last_page
+        ) {
+            this.setState({
+                commentPage: this.props.comments.current_page + 1,
+            });
+            this.props.getCommentsForMovie({
+                movieId: this.state.movieId,
+                page: this.props.comments.current_page + 1,
+            });
+        }
+    };
 
     renderMovieDetails = () => {
         return (
@@ -47,10 +87,27 @@ class MovieDetails extends React.Component {
                 />
                 <div style={description}>{this.props.movie.description}</div>
                 <Like
+                    refresh={this.refreshPage}
                     reactions={this.props.movie.likes}
                     movieId={this.props.movie.id}
                 />
-                <div style={comments}>Comments</div>
+                <div style={commentsPanel}>
+                    <CommentForm
+                        movieId={this.state.movieId}
+                        refresh={this.refreshPage}
+                    />
+                    <div style={comments}>
+                        <h3>Comments</h3>
+                        {this.props.comments.data !== undefined
+                            ? this.props.comments.data.map((comment) => (
+                                  <Comment key={comment.id} comment={comment} />
+                              ))
+                            : ''}
+                        <button onClick={this.loadMoreComments}>
+                            Load more...
+                        </button>
+                    </div>
+                </div>
             </div>
         );
     };
@@ -65,12 +122,14 @@ class MovieDetails extends React.Component {
 const mapStateToProps = (state) => {
     return {
         movie: state.movie.singleMovie,
+        comments: state.movie.comments,
     };
 };
 
 const mapDispatchToProps = {
     getSingleMovie,
     incrementViews,
+    getCommentsForMovie,
 };
 
 export default withRouter(

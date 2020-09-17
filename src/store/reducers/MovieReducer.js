@@ -3,6 +3,7 @@ import {
     SET_SINGLE_MOVIE,
     SET_MOVIES_LIKE,
     SET_GENRES,
+    SET_COMMENTS_FOR_MOVIE,
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
     singleMovie: {},
     moviesLike: [],
     genres: [],
+    comments: [],
 };
 const movieReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -21,6 +23,15 @@ const movieReducer = (state = initialState, action) => {
             return { ...state, moviesLike: action.payload };
         case SET_GENRES:
             return { ...state, genres: action.payload };
+        case SET_COMMENTS_FOR_MOVIE:
+            let newPaginate = action.payload;
+            const allComs =
+                state.comments.data === undefined
+                    ? newPaginate
+                    : state.comments.data.concat(newPaginate.data);
+            newPaginate.data =
+                state.comments.data === undefined ? newPaginate.data : allComs;
+            return { ...state, comments: action.payload };
         default:
             return state;
     }

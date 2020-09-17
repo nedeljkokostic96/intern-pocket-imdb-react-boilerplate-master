@@ -4,6 +4,7 @@ const ENDPOINTS = {
     MOVIES: '/api/movies',
     LIKES: '/api/likes',
     GENRES: '/api/genres',
+    COMMENTS: '/api/comments',
 };
 
 class MovieService extends ApiService {
@@ -39,6 +40,20 @@ class MovieService extends ApiService {
                 ? ENDPOINTS.MOVIES + '/genre/' + payload.genreId
                 : ENDPOINTS.MOVIES + '?page=1';
         return this.apiClient.get(url);
+    };
+
+    addComment = (payload) => {
+        return this.apiClient.post(ENDPOINTS.COMMENTS, payload);
+    };
+
+    getCommentsForMovie = (payload) => {
+        return this.apiClient.get(
+            ENDPOINTS.COMMENTS +
+                '/movie/' +
+                payload.movieId +
+                '?page=' +
+                payload.page
+        );
     };
 }
 
