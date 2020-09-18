@@ -19,14 +19,12 @@ class AddMovie extends React.Component {
     }
 
     submit = (form) => {
-        console.log(form);
         let newMovieData = {
             title: form.title,
             description: form.description,
             image_url: form.image_url,
             genre_id: form.genre,
         };
-        console.log(newMovieData);
         this.props.addMovie(newMovieData);
     };
 

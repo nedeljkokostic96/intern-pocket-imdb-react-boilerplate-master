@@ -185,7 +185,6 @@ export const removeMovieFromList = (payload) => {
 };
 
 export const addMovie = (payload) => {
-    console.log(payload);
     return {
         type: ADD_NEW_MOVIE,
         payload,
