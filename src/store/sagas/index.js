@@ -17,6 +17,7 @@ import {
     MARK_MOVIE_AS_WATCHED,
     ADD_MOVIE_TO_LIST,
     REMOVE_MOVIE_FROM_LIST,
+    ADD_NEW_MOVIE,
 } from '../actions/ActionTypes';
 import { userLogin, userRegister } from './AuthSagas';
 import {
@@ -35,6 +36,7 @@ import {
     markMovieAsWatched,
     addMovieToList,
     removeMovieFromList,
+    addMovie,
 } from './MovieSagas';
 
 export default function* rootSaga() {
@@ -56,5 +58,6 @@ export default function* rootSaga() {
         takeLatest(MARK_MOVIE_AS_WATCHED, markMovieAsWatched),
         takeLatest(ADD_MOVIE_TO_LIST, addMovieToList),
         takeLatest(REMOVE_MOVIE_FROM_LIST, removeMovieFromList),
+        takeLatest(ADD_NEW_MOVIE, addMovie),
     ]);
 }

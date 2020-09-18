@@ -160,3 +160,14 @@ export function* removeMovieFromList({ payload }) {
         console.log(error);
     }
 }
+
+export function* addMovie({ payload }) {
+    try {
+        const { data } = yield call(movieService.addMovie, payload);
+        if (data.status) {
+            console.log(data);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}

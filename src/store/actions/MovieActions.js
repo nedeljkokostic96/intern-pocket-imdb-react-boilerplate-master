@@ -22,6 +22,7 @@ import {
     MARK_MOVIE_AS_WATCHED,
     ADD_MOVIE_TO_LIST,
     REMOVE_MOVIE_FROM_LIST,
+    ADD_NEW_MOVIE,
 } from './ActionTypes';
 
 export const getMovies = (payload) => {
@@ -179,6 +180,14 @@ export const addMovieToList = (payload) => {
 export const removeMovieFromList = (payload) => {
     return {
         type: REMOVE_MOVIE_FROM_LIST,
+        payload,
+    };
+};
+
+export const addMovie = (payload) => {
+    console.log(payload);
+    return {
+        type: ADD_NEW_MOVIE,
         payload,
     };
 };

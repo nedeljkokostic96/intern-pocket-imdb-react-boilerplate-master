@@ -88,6 +88,10 @@ class MovieService extends ApiService {
             ENDPOINTS.WATCHLIST + '/' + payload.watchId
         );
     };
+
+    addMovie = (payload) => {
+        return this.apiClient.post(ENDPOINTS.MOVIES, payload);
+    };
 }
 
 export const movieService = new MovieService();
