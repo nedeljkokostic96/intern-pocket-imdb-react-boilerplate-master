@@ -28,6 +28,7 @@ class WatchListPanel extends React.Component {
     componentDidMount() {
         this.props.usersMovieList.forEach((element) => {
             if (element.movie.id === this.props.movie.id) {
+                console.log(element);
                 this.setState({ inList: true, watch: element });
             }
         });
@@ -36,6 +37,7 @@ class WatchListPanel extends React.Component {
     handleClick = (event) => {
         switch (event.target.name) {
             case 'mark':
+                console.log(event.target);
                 this.props.markMovieAsWatched({ watchId: this.state.watch.id });
                 break;
             case 'add':
@@ -55,12 +57,12 @@ class WatchListPanel extends React.Component {
         return (
             <div>
                 <div>
-                    {this.state.inList && this.state.watch.wached ? (
+                    {this.state.inList && this.state.watch.watched ? (
                         <h4 style={watched}>Watched</h4>
                     ) : (
                         ''
                     )}
-                    {this.state.inList && !this.state.wached ? (
+                    {this.state.inList && !this.state.watch.watched ? (
                         <button
                             name="mark"
                             style={button}

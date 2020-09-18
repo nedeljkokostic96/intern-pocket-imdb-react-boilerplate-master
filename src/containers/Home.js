@@ -54,11 +54,11 @@ class Home extends Component {
     };
 
     componentDidMount() {
+        this.props.getUsersMovieList();
         this.props.getMovies({ page: this.state.activePage });
         this.props.getHotestMovies({
             numberOfHotest: this.state.numberOfHotest,
         });
-        this.props.getUsersMovieList();
     }
 
     handlePageChange = (event) => {
