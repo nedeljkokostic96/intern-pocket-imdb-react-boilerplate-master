@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { getMovies, getHotestMovies } from '../store/actions/MovieActions';
+import {
+    getMovies,
+    getHotestMovies,
+    getUsersMovieList,
+} from '../store/actions/MovieActions';
 import MovieCard from '../component/MovieCard';
 import Pagination from '../component/Pagination';
 import Search from '../component/Search';
@@ -54,6 +58,7 @@ class Home extends Component {
         this.props.getHotestMovies({
             numberOfHotest: this.state.numberOfHotest,
         });
+        this.props.getUsersMovieList();
     }
 
     handlePageChange = (event) => {
@@ -68,6 +73,7 @@ class Home extends Component {
                 : this.props.movies.data;
         return data.map((movie) => (
             <MovieCard
+                list={this.props.usersMovieList}
                 key={movie.id}
                 page={this.state.activePage}
                 movie={movie}
@@ -121,12 +127,14 @@ const mapStateToProps = (state) => {
     return {
         movies: state.movie.all,
         hotestMovies: state.movie.hotestMovies,
+        usersMovieList: state.movie.usersMovieList,
     };
 };
 
 const mapDispatchToProps = {
     getMovies,
     getHotestMovies,
+    getUsersMovieList,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));

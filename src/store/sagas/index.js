@@ -13,6 +13,10 @@ import {
     GET_COMMENTS_FOR_MOVIE,
     GET_HOTEST_MOVIES,
     GET_RELATED_MOVIES,
+    GET_USERS_MOVIE_LIST,
+    MARK_MOVIE_AS_WATCHED,
+    ADD_MOVIE_TO_LIST,
+    REMOVE_MOVIE_FROM_LIST,
 } from '../actions/ActionTypes';
 import { userLogin, userRegister } from './AuthSagas';
 import {
@@ -27,6 +31,10 @@ import {
     getCommentsForMovie,
     getHotestMovies,
     getRelatedMovies,
+    getMovieListForUser,
+    markMovieAsWatched,
+    addMovieToList,
+    removeMovieFromList,
 } from './MovieSagas';
 
 export default function* rootSaga() {
@@ -44,5 +52,9 @@ export default function* rootSaga() {
         takeLatest(GET_COMMENTS_FOR_MOVIE, getCommentsForMovie),
         takeLatest(GET_HOTEST_MOVIES, getHotestMovies),
         takeLatest(GET_RELATED_MOVIES, getRelatedMovies),
+        takeLatest(GET_USERS_MOVIE_LIST, getMovieListForUser),
+        takeLatest(MARK_MOVIE_AS_WATCHED, markMovieAsWatched),
+        takeLatest(ADD_MOVIE_TO_LIST, addMovieToList),
+        takeLatest(REMOVE_MOVIE_FROM_LIST, removeMovieFromList),
     ]);
 }

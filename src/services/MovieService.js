@@ -5,6 +5,7 @@ const ENDPOINTS = {
     LIKES: '/api/likes',
     GENRES: '/api/genres',
     COMMENTS: '/api/comments',
+    WATCHLIST: '/api/watchlists',
 };
 
 class MovieService extends ApiService {
@@ -65,6 +66,26 @@ class MovieService extends ApiService {
     getRelatedMovies = (payload) => {
         return this.apiClient.get(
             ENDPOINTS.MOVIES + '/related/' + payload.movieId
+        );
+    };
+
+    getUsersMovieList = () => {
+        return this.apiClient.get(ENDPOINTS.WATCHLIST);
+    };
+
+    markMovieAsWatched = (payload) => {
+        return this.apiClient.patch(
+            ENDPOINTS.WATCHLIST + '/' + payload.watchId
+        );
+    };
+
+    addMovieToList = (payload) => {
+        return this.apiClient.post(ENDPOINTS.WATCHLIST, payload);
+    };
+
+    removeMovieFromList = (payload) => {
+        return this.apiClient.delete(
+            ENDPOINTS.WATCHLIST + '/' + payload.watchId
         );
     };
 }

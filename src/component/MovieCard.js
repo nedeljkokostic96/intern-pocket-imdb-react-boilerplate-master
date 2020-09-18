@@ -1,5 +1,6 @@
 import React from 'react';
 import Like from './Like';
+import WatchListPanel from './WatchListPanel';
 
 const card = {
     border: '1px solid black',
@@ -10,6 +11,7 @@ const card = {
     height: 'auto',
     display: 'inline-block',
     margin: '0vh 3% 4vh',
+    textAlign: 'center',
 };
 
 const link = {
@@ -36,6 +38,7 @@ const MovieCard = ({ movie, page }) => {
                 Details...
             </a>
             <Like page={page} reactions={movie.likes} movieId={movie.id} />
+            <WatchListPanel movie={movie} />
         </div>
     );
 };

@@ -11,6 +11,7 @@ import { withRouter } from 'react-router-dom';
 import Like from '../component/Like';
 import CommentForm from '../component/CommentForm';
 import Comment from '../component/Comment';
+import WatchListPanel from '../component/WatchListPanel';
 
 const movieDetails = {
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
@@ -43,7 +44,6 @@ const sideBar = {
     display: 'inline-block',
     width: '15%',
     float: 'left',
-    border: '1px solid red',
     textAlign: 'center',
 };
 
@@ -54,6 +54,7 @@ const link = {
     border: '1px solid red',
     width: '80%',
     margin: '1vh 10%',
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
 };
 
 class MovieDetails extends React.Component {
@@ -113,6 +114,7 @@ class MovieDetails extends React.Component {
                     reactions={this.props.movie.likes}
                     movieId={this.props.movie.id}
                 />
+                <WatchListPanel movie={this.props.movie} />
                 <div style={commentsPanel}>
                     <CommentForm
                         movieId={this.state.movieId}
@@ -137,7 +139,12 @@ class MovieDetails extends React.Component {
     renderRelatedMovies = () => {
         return (
             <div style={sideBar}>
-                <h3>Related movies</h3>
+                <h3>
+                    Related movies in genre{' '}
+                    {this.props.movie.genre === undefined
+                        ? ''
+                        : this.props.movie.genre.name}
+                </h3>
                 {this.props.relatedMovies.map((movie) => (
                     <a style={link} key={movie.id} href={movie.id}>
                         {movie.title}

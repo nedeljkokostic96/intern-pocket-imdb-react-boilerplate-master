@@ -17,6 +17,11 @@ import {
     SET_HOTEST_MOVIES,
     GET_RELATED_MOVIES,
     SET_RELATED_MOVIES,
+    GET_USERS_MOVIE_LIST,
+    SET_USERS_MOVIE_LIST,
+    MARK_MOVIE_AS_WATCHED,
+    ADD_MOVIE_TO_LIST,
+    REMOVE_MOVIE_FROM_LIST,
 } from './ActionTypes';
 
 export const getMovies = (payload) => {
@@ -140,6 +145,40 @@ export const getRelatedMovies = (payload) => {
 export const setRelatedMovies = (payload) => {
     return {
         type: SET_RELATED_MOVIES,
+        payload,
+    };
+};
+
+export const getUsersMovieList = () => {
+    return {
+        type: GET_USERS_MOVIE_LIST,
+    };
+};
+
+export const setUsersMovieList = (payload) => {
+    return {
+        type: SET_USERS_MOVIE_LIST,
+        payload,
+    };
+};
+
+export const markMovieAsWatched = (payload) => {
+    return {
+        type: MARK_MOVIE_AS_WATCHED,
+        payload,
+    };
+};
+
+export const addMovieToList = (payload) => {
+    return {
+        type: ADD_MOVIE_TO_LIST,
+        payload,
+    };
+};
+
+export const removeMovieFromList = (payload) => {
+    return {
+        type: REMOVE_MOVIE_FROM_LIST,
         payload,
     };
 };

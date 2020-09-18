@@ -8,6 +8,7 @@ import {
     setCommentsForMovie,
     setHotestMovies,
     setRelatedMovies,
+    setUsersMovieList,
 } from '../actions/MovieActions';
 
 export function* moviesGet({ payload }) {
@@ -113,6 +114,48 @@ export function* getRelatedMovies({ payload }) {
     try {
         const { data } = yield call(movieService.getRelatedMovies, payload);
         yield put(setRelatedMovies(data));
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export function* getMovieListForUser() {
+    try {
+        const { data } = yield call(movieService.getUsersMovieList);
+        yield put(setUsersMovieList(data));
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export function* markMovieAsWatched({ payload }) {
+    try {
+        const { data } = yield call(movieService.markMovieAsWatched, payload);
+        if (data.status) {
+            console.log(data);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export function* addMovieToList({ payload }) {
+    try {
+        const { data } = yield call(movieService.addMovieToList, payload);
+        if (data.status) {
+            console.log(data);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export function* removeMovieFromList({ payload }) {
+    try {
+        const { data } = yield call(movieService.removeMovieFromList, payload);
+        if (data.status) {
+            console.log(data);
+        }
     } catch (error) {
         console.log(error);
     }
