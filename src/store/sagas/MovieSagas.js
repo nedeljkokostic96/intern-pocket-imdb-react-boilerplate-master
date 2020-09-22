@@ -9,6 +9,7 @@ import {
     setHotestMovies,
     setRelatedMovies,
     setUsersMovieList,
+    putMovieFromOMDB,
 } from '../actions/MovieActions';
 
 export function* moviesGet({ payload }) {
@@ -41,11 +42,16 @@ export function* getMoviesLike({ payload }) {
 export function* addReaction({ payload }) {
     try {
         const { data } = yield call(movieService.addReaction, payload);
+        // console.log(payload);
+        // if (parseInt(payload.page) > 0) {
+        //     yield put(getMovies({ page: payload.page }));
+        //     return;
+        // }
+        // yield put(push('/movies/' + payload.movieId));
+        // if (data) {
+        //     yield put(injectReaction(data.like));
+        // }
         console.log(data);
-        if (data.status) {
-            //getMovies({ page: 1 });
-            console.log(data);
-        }
     } catch (error) {
         console.log(error);
     }
@@ -84,9 +90,7 @@ export function* getMoviesByGenre({ payload }) {
 export function* addComment({ payload }) {
     try {
         const { data } = yield call(movieService.addComment, payload);
-        if (data.status) {
-            console.log(data);
-        }
+        console.log(data);
     } catch (error) {
         console.log(error);
     }
@@ -131,9 +135,8 @@ export function* getMovieListForUser() {
 export function* markMovieAsWatched({ payload }) {
     try {
         const { data } = yield call(movieService.markMovieAsWatched, payload);
-        if (data.status) {
-            console.log(data);
-        }
+        console.log(data);
+        yield put(setUsersMovieList(data));
     } catch (error) {
         console.log(error);
     }
@@ -142,9 +145,7 @@ export function* markMovieAsWatched({ payload }) {
 export function* addMovieToList({ payload }) {
     try {
         const { data } = yield call(movieService.addMovieToList, payload);
-        if (data.status) {
-            console.log(data);
-        }
+        yield put(setUsersMovieList(data));
     } catch (error) {
         console.log(error);
     }
@@ -153,9 +154,7 @@ export function* addMovieToList({ payload }) {
 export function* removeMovieFromList({ payload }) {
     try {
         const { data } = yield call(movieService.removeMovieFromList, payload);
-        if (data.status) {
-            console.log(data);
-        }
+        yield put(setUsersMovieList(data));
     } catch (error) {
         console.log(error);
     }
@@ -167,6 +166,15 @@ export function* addMovie({ payload }) {
         if (data.status) {
             console.log(data);
         }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export function* getMovieFromOMDB({ payload }) {
+    try {
+        const response = yield call(movieService.getMovieFromOMDB, payload);
+        yield put(putMovieFromOMDB(response));
     } catch (error) {
         console.log(error);
     }

@@ -21,12 +21,13 @@ const link = {
     margin: '0% 40%',
 };
 
+const image = {
+    width: '100%',
+    height: '60%',
+    margin: '0%',
+};
+
 const MovieCard = ({ movie, page }) => {
-    const image = {
-        width: '100%',
-        height: '60%',
-        margin: '0%',
-    };
     return (
         <div style={card}>
             <img style={image} src={movie.image_url} alt="Cant be loaded..." />

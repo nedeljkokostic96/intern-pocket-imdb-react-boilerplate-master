@@ -18,6 +18,7 @@ import {
     ADD_MOVIE_TO_LIST,
     REMOVE_MOVIE_FROM_LIST,
     ADD_NEW_MOVIE,
+    GET_MOVIE_FROM_OMDB,
 } from '../actions/ActionTypes';
 import { userLogin, userRegister } from './AuthSagas';
 import {
@@ -37,6 +38,7 @@ import {
     addMovieToList,
     removeMovieFromList,
     addMovie,
+    getMovieFromOMDB,
 } from './MovieSagas';
 
 export default function* rootSaga() {
@@ -59,5 +61,6 @@ export default function* rootSaga() {
         takeLatest(ADD_MOVIE_TO_LIST, addMovieToList),
         takeLatest(REMOVE_MOVIE_FROM_LIST, removeMovieFromList),
         takeLatest(ADD_NEW_MOVIE, addMovie),
+        takeLatest(GET_MOVIE_FROM_OMDB, getMovieFromOMDB),
     ]);
 }

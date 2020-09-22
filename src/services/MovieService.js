@@ -6,6 +6,7 @@ const ENDPOINTS = {
     GENRES: '/api/genres',
     COMMENTS: '/api/comments',
     WATCHLIST: '/api/watchlists',
+    OMDB: 'http://www.omdbapi.com/?apikey=48ae78b7&t=',
 };
 
 class MovieService extends ApiService {
@@ -91,6 +92,28 @@ class MovieService extends ApiService {
 
     addMovie = (payload) => {
         return this.apiClient.post(ENDPOINTS.MOVIES, payload);
+    };
+
+    getMovieFromOMDB = async (payload) => {
+        const header = this.apiClient.defaults.headers['Authorization'];
+        this.api.removeHeaders(['Authorization']);
+        let { data } = await this.apiClient.get(ENDPOINTS.OMDB + payload.title);
+        let result = {};
+        if (data.Response !== 'False') {
+            const title = data.Title;
+            let rawGenre = data.Genre;
+            const genre = rawGenre.split(',')[0].toLowerCase();
+            const image_url = data.Poster;
+            const description = data.Plot;
+            result = {
+                title: title,
+                genre: genre,
+                image_url: image_url,
+                description: description,
+            };
+        }
+        this.api.attachHeaders({ Authorization: header });
+        return result;
     };
 }
 

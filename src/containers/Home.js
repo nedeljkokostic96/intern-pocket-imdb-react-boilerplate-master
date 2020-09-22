@@ -61,6 +61,10 @@ class Home extends Component {
         });
     }
 
+    // componentWillUpdate(nextProps) {
+    //     console.log(nextProps);
+    // }
+
     handlePageChange = (event) => {
         this.setState({ activePage: event.target.value });
         this.props.getMovies({ page: parseInt(event.target.value) });

@@ -43,8 +43,10 @@ class Search extends React.Component {
 
     handleChange = (event) => {
         const { value } = event.target;
-        this.setState({ search: value });
-        this.getMoviesFromDB(value);
+        if (value.length > 0) {
+            this.setState({ search: value });
+            this.getMoviesFromDB(value);
+        }
     };
 
     render() {

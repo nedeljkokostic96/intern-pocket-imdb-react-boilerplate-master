@@ -110,7 +110,7 @@ class MovieDetails extends React.Component {
                 />
                 <div style={description}>{this.props.movie.description}</div>
                 <Like
-                    refresh={this.refreshPage}
+                    page="0"
                     reactions={this.props.movie.likes}
                     movieId={this.props.movie.id}
                 />
@@ -171,6 +171,7 @@ const mapStateToProps = (state) => {
         movie: state.movie.singleMovie,
         comments: state.movie.comments,
         relatedMovies: state.movie.relatedMovies,
+        usersMovieList: state.movie.usersMovieList,
     };
 };
 

@@ -23,6 +23,9 @@ import {
     ADD_MOVIE_TO_LIST,
     REMOVE_MOVIE_FROM_LIST,
     ADD_NEW_MOVIE,
+    INJECT_REACTION,
+    GET_MOVIE_FROM_OMDB,
+    PUT_MOVIE_FROM_OMDB,
 } from './ActionTypes';
 
 export const getMovies = (payload) => {
@@ -70,6 +73,13 @@ export const setMoviesLike = (payload) => {
 export const addReaction = (payload) => {
     return {
         type: ADD_REACTION,
+        payload,
+    };
+};
+
+export const injectReaction = (payload) => {
+    return {
+        type: INJECT_REACTION,
         payload,
     };
 };
@@ -187,6 +197,20 @@ export const removeMovieFromList = (payload) => {
 export const addMovie = (payload) => {
     return {
         type: ADD_NEW_MOVIE,
+        payload,
+    };
+};
+
+export const getMovieFromOMDB = (payload) => {
+    return {
+        type: GET_MOVIE_FROM_OMDB,
+        payload,
+    };
+};
+
+export const putMovieFromOMDB = (payload) => {
+    return {
+        type: PUT_MOVIE_FROM_OMDB,
         payload,
     };
 };

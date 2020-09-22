@@ -5,6 +5,7 @@ import {
     markMovieAsWatched,
     addMovieToList,
     removeMovieFromList,
+    getUsersMovieList,
 } from '../store/actions/MovieActions';
 
 const watched = {
@@ -26,18 +27,37 @@ class WatchListPanel extends React.Component {
     };
 
     componentDidMount() {
+        this.props.getUsersMovieList();
+        let inList = false;
+        let watch = {};
         this.props.usersMovieList.forEach((element) => {
             if (element.movie.id === this.props.movie.id) {
-                console.log(element);
-                this.setState({ inList: true, watch: element });
+                inList = true;
+                watch = element;
             }
         });
+        this.setState({ inList, watch });
     }
+
+    componentWillReceiveProps(nextProps) {
+        let inList = false;
+        let watch = {};
+        nextProps.usersMovieList.forEach((element) => {
+            if (element.movie.id === this.props.movie.id) {
+                inList = true;
+                watch = element;
+            }
+        });
+        this.setState({ inList, watch });
+    }
+    doesMovieBelongsToUser = () =>
+        this.props.usersMovieList.find(
+            (element) => this.props.movie.id === element.movie.id
+        );
 
     handleClick = (event) => {
         switch (event.target.name) {
             case 'mark':
-                console.log(event.target);
                 this.props.markMovieAsWatched({ watchId: this.state.watch.id });
                 break;
             case 'add':
@@ -57,12 +77,14 @@ class WatchListPanel extends React.Component {
         return (
             <div>
                 <div>
-                    {this.state.inList && this.state.watch.watched ? (
+                    {this.doesMovieBelongsToUser() &&
+                    this.state.watch.watched ? (
                         <h4 style={watched}>Watched</h4>
                     ) : (
                         ''
                     )}
-                    {this.state.inList && !this.state.watch.watched ? (
+                    {this.doesMovieBelongsToUser() &&
+                    !this.state.watch.watched ? (
                         <button
                             name="mark"
                             style={button}
@@ -111,6 +133,7 @@ const mapDispatchToProps = {
     markMovieAsWatched,
     addMovieToList,
     removeMovieFromList,
+    getUsersMovieList,
 };
 
 export default withRouter(

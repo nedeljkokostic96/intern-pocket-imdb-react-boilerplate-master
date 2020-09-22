@@ -28,13 +28,24 @@ class Like extends React.Component {
         this.setState({ likes, dislikes });
     }
 
+    componentWillReceiveProps(nextProps) {
+        let likes = 0;
+        let dislikes = 0;
+        nextProps.reactions.map((reaction) =>
+            reaction.liked ? likes++ : dislikes++
+        );
+        this.setState({ likes, dislikes });
+    }
+
     handleClick = (event) => {
         const liked = event.target.name === 'like' ? 1 : 0;
-        this.props.addReaction({
+        const payload = {
+            page: this.props.page,
             liked: liked,
             movieId: this.props.movieId,
-        });
-        this.props.refresh();
+        };
+        console.log(payload);
+        this.props.addReaction(payload);
     };
 
     render() {
