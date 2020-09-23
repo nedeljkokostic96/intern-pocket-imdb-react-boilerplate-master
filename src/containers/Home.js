@@ -75,6 +75,7 @@ class Home extends Component {
             this.props.movies.data === undefined
                 ? this.props.movies
                 : this.props.movies.data;
+        console.log(data);
         return data.map((movie) => (
             <MovieCard
                 list={this.props.usersMovieList}

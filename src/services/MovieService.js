@@ -91,6 +91,7 @@ class MovieService extends ApiService {
     };
 
     addMovie = (payload) => {
+        console.log(payload);
         return this.apiClient.post(ENDPOINTS.MOVIES, payload);
     };
 

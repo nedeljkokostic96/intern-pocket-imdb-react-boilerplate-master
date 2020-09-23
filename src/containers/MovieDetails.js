@@ -105,7 +105,11 @@ class MovieDetails extends React.Component {
                 <h4>{this.props.movie.genre.name}</h4>
                 <p>Views: {this.props.movie.views}</p>
                 <img
-                    src={this.props.movie.image_url}
+                    src={
+                        this.props.movie.image_url !== null
+                            ? this.props.movie.image_url
+                            : this.props.movie.image.full_size
+                    }
                     alt="Can not load from specified source..."
                 />
                 <div style={description}>{this.props.movie.description}</div>

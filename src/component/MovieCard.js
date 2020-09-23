@@ -30,7 +30,15 @@ const image = {
 const MovieCard = ({ movie, page }) => {
     return (
         <div style={card}>
-            <img style={image} src={movie.image_url} alt="Cant be loaded..." />
+            <img
+                style={image}
+                src={
+                    movie.image_url !== null
+                        ? movie.image_url
+                        : movie.image.thumbnail
+                }
+                alt="Cant be loaded..."
+            />
             <h3>{movie.title}</h3>
             <h4>{movie.genre.name}</h4>
             <p>Views: {movie.views}</p>

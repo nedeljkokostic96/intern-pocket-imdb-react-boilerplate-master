@@ -17,6 +17,8 @@ class AddMovieForm extends React.Component {
         description: '',
         image_url: '',
         genre: '',
+        image: '',
+        imageUploadError: '',
     };
 
     componentDidMount() {
@@ -24,14 +26,38 @@ class AddMovieForm extends React.Component {
     }
 
     submit = (form, { resetForm }) => {
+        if (this.state.image === '') {
+            this.setState({
+                imageUploadError:
+                    'Missing image! Upload image to complete action...',
+            });
+        }
         let newMovieData = {
             title: form.title,
+            image_url: '',
             description: form.description,
-            image_url: form.image_url,
             genre_id: form.genre,
+            image: this.state.image,
         };
         this.props.addMovie(newMovieData);
         resetForm({});
+        this.setState({ image: '' });
+    };
+
+    onChangeImage = (e) => {
+        let files = e.target.files || e.dataTransfer.files;
+        if (!files.length) return;
+        console.log(files);
+        this.createImage(files[0]);
+    };
+    createImage = (file) => {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+            this.setState({
+                image: e.target.result,
+            });
+        };
+        reader.readAsDataURL(file);
     };
 
     signupSchema = Yup.object().shape({
@@ -43,7 +69,6 @@ class AddMovieForm extends React.Component {
             .min(2, 'Too Short!')
             .max(255, 'Too Long!')
             .required('Required'),
-        image_url: Yup.string().required('Required'),
         genre: Yup.string()
             .min(1, 'Must be valid genre id!')
             .max(7, 'Must be valid genre id!')
@@ -74,12 +99,20 @@ class AddMovieForm extends React.Component {
                             />
                             <ErrorMessage component="div" name="description" />
                             <br />
-                            <Field
-                                name="image_url"
-                                type="text"
-                                placeholder="Image URL"
+                            <input
+                                type="file"
+                                accept="jpg/png"
+                                onChange={this.onChangeImage}
                             />
-                            <ErrorMessage component="div" name="image_url" />
+                            <div
+                                display={
+                                    this.state.imageUploadError === ''
+                                        ? 'none'
+                                        : 'display'
+                                }
+                            >
+                                {this.state.imageUploadError}
+                            </div>
                             <br />
                             <Field name="genre" as="select">
                                 {this.props.genres.map((genre) => (
@@ -99,6 +132,16 @@ class AddMovieForm extends React.Component {
                         </Form>
                     )}
                 </Formik>
+                {this.state.image !== '' ? (
+                    <img
+                        src={this.state.image}
+                        width="300px"
+                        height="200px"
+                        alt="Cannot show"
+                    />
+                ) : (
+                    ''
+                )}
             </div>
         );
     }
