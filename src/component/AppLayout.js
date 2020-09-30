@@ -1,52 +1,54 @@
-import React from "react";
-import { Route } from "react-router-dom";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import React from 'react';
+import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-import Login from "../containers/auth/Login";
-import Register from "../containers/auth/Register";
-import Home from "../containers/Home";
-import { authUser } from "../store/actions/AuthActions";
-import MovieDetails from "../containers/MovieDetails";
+import Login from '../containers/auth/Login';
+import Register from '../containers/auth/Register';
+import Home from '../containers/Home';
+import { authUser } from '../store/actions/AuthActions';
+import MovieDetails from '../containers/MovieDetails';
+import AddMovie from '../containers/AddMovie';
 
 class AppLayout extends React.Component {
-  componentDidUpdate(prevProps) {
-    if (this.props.user !== prevProps.user) {
-      if (this.props.user) {
-        this.props.history.push("/home");
-      } else {
-        this.props.history.push("/login");
-      }
+    componentDidUpdate(prevProps) {
+        if (this.props.user !== prevProps.user) {
+            if (this.props.user) {
+                this.props.history.push('/home');
+            } else {
+                this.props.history.push('/login');
+            }
+        }
     }
-  }
 
-  render() {
-    return this.props.user ? (
-      <div>
-        <Route exact path="/home" component={Home} />
-        <Route exact path="/movies/" component={MovieDetails} />
-      </div>
-    ) : (
-      <div>
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/login" component={Login} />
-      </div>
-    );
-  }
+    render() {
+        return this.props.user ? (
+            <div>
+                <Route exact path="/home" component={Home} />
+                <Route exact path="/movies/:id" component={MovieDetails} />
+                <Route exact path="/addMovie" component={AddMovie} />
+            </div>
+        ) : (
+            <div>
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/login" component={Login} />
+            </div>
+        );
+    }
 }
 
 const mapStateToProps = (state) => {
-  return {
-    user: state.authUser,
-  };
+    return {
+        user: state.authUser,
+    };
 };
 
 const mapDispatchToProps = () => {
-  return {
-    authUser,
-  };
+    return {
+        authUser,
+    };
 };
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(AppLayout)
+    connect(mapStateToProps, mapDispatchToProps)(AppLayout)
 );
